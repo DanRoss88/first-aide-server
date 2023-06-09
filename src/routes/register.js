@@ -1,13 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const registerRouter = express.Router();
 const db = require('../config/config.db');
 
 // Serve the registration page
-router.get('/register', (req, res) => {
+registerRouter.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.post('/register', (req, res) => {
+registerRouter.post('/register', (req, res) => {
   const { username, email, name } = req.body;
 
   // Check if the email already exists
@@ -50,4 +50,4 @@ router.post('/register', (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = registerRouter;

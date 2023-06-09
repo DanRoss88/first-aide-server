@@ -1,6 +1,6 @@
 const { getInstructionsByKeyword } = require('../controllers/instructions_controllers');
 const express = require('express');
-const router = express.Router();
+const instructionsRouter = express.Router();
 
 router.get('/instructions/:keyword', (req, res) => {
   const inputString = req.params.keyword;
@@ -22,5 +22,5 @@ router.get('/instructions/:keyword', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = instructionsRouter;
 

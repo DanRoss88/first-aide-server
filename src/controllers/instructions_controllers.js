@@ -8,7 +8,7 @@ const getInstructionsByKeyword = (inputString) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.log('Error retrieving instructions:', err);
-      throw err; // Re-throw the error to be caught by the caller
+      throw err; 
     });
 };
 

@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const loginRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../config/config.db');
 
 // Login route
-router.post('/login', (req, res) => {
+loginRouter.post('/login', (req, res) => {
   const { email } = req.body;
 
   // Find the user by email
@@ -26,5 +26,5 @@ router.post('/login', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = loginRouter;
 
