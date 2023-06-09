@@ -1,4 +1,4 @@
-// Initialize database connection
+/// Reset the database
 require('dotenv').config();
 const { Pool } = require('pg');
 
@@ -9,22 +9,20 @@ const dbParams = {
     user: process.env.PGUSER,
     password: process.env.PGPASSWORD,
 };
+
 const db = new Pool(dbParams);
 
 db.connect();
 
 db.on('connect', () => {
     console.log('Database connection established');
-});
+}
+);
 
-db.on('error', (err) => {
+db.on('error', (err) => { 
     console.error('Unexpected error on idle client', err);
     process.exit(-1);
-});
+}
+);
 
 
-
-module.exports = db;
-
-//Connect to database with:
-//node src/config/config.db.js
