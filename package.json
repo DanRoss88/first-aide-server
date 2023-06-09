@@ -1,0 +1,16 @@
+{
+  "name": "first-aide-server",
+  "version": "1.0.0",
+  "description": "First Aid medical app for LHL final project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
