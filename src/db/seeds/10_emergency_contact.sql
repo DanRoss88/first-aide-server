@@ -1,4 +1,4 @@
-INSERT INTO emergency_contact (name, phone, relationship, user_id)
+INSERT INTO emergency_contact (name, phone, relationship, users_id)
 VALUES 
 ('John Doe', '555-555-5555', 'Father', 1),
 ('Jane Doe', '555-555-5556', 'Mother', 1),

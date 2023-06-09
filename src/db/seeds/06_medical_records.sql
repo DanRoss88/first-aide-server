@@ -1,3 +1,3 @@
-INSERT INTO medical_records (user_id)
+INSERT INTO medical_records (users_id)
 VALUES
 (1);

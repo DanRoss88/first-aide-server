@@ -4,5 +4,5 @@ CREATE TABLE emergency_contact (
     name varchar(255) NOT NULL,
     phone varchar(255) NOT NULL,
     relationship varchar(255),
-    user_id INTEGER REFERENCES "user" (id)
+    users_id INTEGER REFERENCES users(id)
 );

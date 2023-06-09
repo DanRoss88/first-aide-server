@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS hospital CASCADE;
-CREATE TABLE "hospital" (
+CREATE TABLE hospital (
     id SERIAL PRIMARY KEY,
     city_id INTEGER REFERENCES city(id),
     name VARCHAR(255) NOT NULL,
