@@ -1,3 +1,5 @@
+const EmergencyContact = require('../models/emergency_contact_model');
+
 // Emergency Contact Controller Functions
 
 // Get user's emergency contacts
@@ -51,3 +53,10 @@ async function deleteEmergencyContact(req, res) {
     res.status(500).json({ error: 'Failed to delete emergency contact' });
   }
 }
+
+module.exports = {
+  getEmergencyContacts,
+  addEmergencyContact,
+  updateEmergencyContact,
+  deleteEmergencyContact,
+};

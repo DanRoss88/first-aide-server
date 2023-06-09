@@ -1,3 +1,5 @@
+const MedicalRecords = require('../models/medical_records_model');
+
 // Medical Info Controller Functions
 
 // Get user's medical information
@@ -31,3 +33,8 @@ async function updateUserMedicalInfo(req, res) {
     res.status(500).json({ error: 'Failed to update medical information' });
   }
 }
+
+module.exports = {
+  getUserMedicalInfo,
+  updateUserMedicalInfo,
+};

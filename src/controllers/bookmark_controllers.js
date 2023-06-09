@@ -1,3 +1,5 @@
+const Bookmark = require('../models/bookmark');
+
 // Bookmark Controller Functions
 
 // Get all bookmarks
@@ -47,3 +49,10 @@ async function deleteBookmark(req, res) {
     res.status(500).json({ error: 'Failed to delete bookmark' });
   }
 }
+
+module.exports = {
+  getAllBookmarks,
+  getBookmarkById,
+  createBookmark,
+  deleteBookmark,
+};

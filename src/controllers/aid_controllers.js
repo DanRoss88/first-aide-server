@@ -1,3 +1,5 @@
+const Aid = require('../models/aid_model');
+
 // Aid Controller Functions
 
 // Get all aids
@@ -61,3 +63,11 @@ async function deleteAid(req, res) {
     res.status(500).json({ error: 'Failed to delete aid' });
   }
 }
+
+module.exports = {
+  getAllAids,
+  getAidById,
+  createAid,
+  updateAid,
+  deleteAid
+};

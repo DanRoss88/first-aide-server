@@ -1,4 +1,4 @@
-
+const Hospital = require('../models/hospital_model');
 
 // Get hospitals by city
 async function getHospitalsByCity(req, res) {
@@ -61,3 +61,11 @@ async function deleteHospital(req, res) {
     res.status(500).json({ error: 'Failed to delete hospital' });
   }
 }
+
+module.exports = {
+  getHospitalsByCity,
+  getHospitalById,
+  addHospital,
+  updateHospital,
+  deleteHospital,
+};
