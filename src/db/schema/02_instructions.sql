@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS instructions CASCADE;
+CREATE TABLE instructions (
+  id SERIAL PRIMARY KEY NOT NULL,
+  keyword VARCHAR(255) NOT NULL,
+  instructions VARCHAR(255),
+  bookmarked BOOLEAN NOT NULL DEFAULT FALSE
+);
