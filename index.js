@@ -1,39 +1,47 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const db = require('./src/config/config.db');
-const morgan = require('morgan');
+
+const db = require("./src/config/config.db");
+const jwt = require("jsonwebtoken");
+const morgan = require("morgan");
 
 
-app.use(morgan('dev'));
 
 ///***Require Router Module***///
 
-// const bookmarkRouter = require('./src/routes/bookmark');
-// const hospitalRouter = require('./src/routes/hospital');
-// const medicalRecordsRouter = require('./src/routes/medical_records');
-// const userRouter = require('./src/routes/user');
-  const loginRouter = require('./src/routes/login');
-  const registerRouter = require('./src/routes/register');
-  const homeRouter = require('./src/routes/home');
-  const instructionsRouter = require('./src/routes/instructions');  
+const userRouter = require("./src/routes/user");
+const loginRouter = require("./src/routes/login");
+const registerRouter = require("./src/routes/register");
+const instructionsRouter = require("./src/routes/instructions");
 
-  ///***Use Router Module***///
+
+
+///***Use Router Module***///
 // app.use('/api',aidRouter);
 // app.use('/api',bookmarkRouter);
 // app.use('/api',hospitalRouter);
 // app.use('/api',medicalRecordsRouter);
 // app.use('/api',userRouter);
-app.use('/', homeRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter); 
+
+///***Use Middleware***///
+app.use(express.json());
+app.use(morgan("dev"));
+
+
+///***Use Router Module***///
+app.use("/users", userRouter);
+app.use("/login", loginRouter);
+app.use("/register", registerRouter);
 app.use('/instructions', instructionsRouter);
+
 
 ///***Start Server***///
 const port = 8000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-})
+});
 
 
-
-
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
