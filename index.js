@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const db = require('./src/config/config.db');
 
 ///***Require Router Module***///
 // const aidRouter = require('./src/routes/aid');

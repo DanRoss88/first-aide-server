@@ -1,4 +1,5 @@
 // Initialize database connection
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const dbParams = {
