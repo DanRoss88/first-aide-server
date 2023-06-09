@@ -1,8 +1,20 @@
 const { getInstructionsByKeyword } = require('../controllers/instructions_controllers');
 const express = require('express');
 const instructionsRouter = express.Router();
+const db = require('../config/config.db');
 
-router.get('/instructions/:keyword', (req, res) => {
+
+instructionsRouter.get("/", async (req, res) => {
+  try {
+    const instructions = await db.query("SELECT * FROM instructions");
+    res.json(instructions.rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve instructions." });
+  }
+});
+
+
+instructionsRouter.get('/instructions/:keyword', (req, res) => {
   const inputString = req.params.keyword;
 
   getInstructionsByKeyword(inputString)
