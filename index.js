@@ -15,7 +15,7 @@ app.use(morgan('dev'));
   const loginRouter = require('./src/routes/login');
   const registerRouter = require('./src/routes/register');
   const homeRouter = require('./src/routes/home');
-
+  const instructionsRouter = require('./src/routes/instructions');  
 
   ///***Use Router Module***///
 // app.use('/api',aidRouter);
@@ -26,7 +26,7 @@ app.use(morgan('dev'));
 app.use('/', homeRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter); 
-
+app.use('/instructions', instructionsRouter);
 
 ///***Start Server***///
 const port = 8000;

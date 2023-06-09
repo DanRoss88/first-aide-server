@@ -1,17 +1,15 @@
 const db = require('../config/config.db');
 
 const getInstructionsByKeyword = (inputString) => {
- const prompt = `%${inputString}%`;
+  const prompt = `%${inputString}%`;
 
-return db
-  .query(`SELECT * FROM instructions WHERE ILIKE keyword = $1`, [prompt])
-  .then(data => data.rows);
-}
+  return db
+    .query('SELECT instruction FROM instructions WHERE $1 ILIKE CONCAT(\'%\', keyword, \'%\')', [prompt])
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.log('Error retrieving instructions:', err);
+      throw err; // Re-throw the error to be caught by the caller
+    });
+};
 
-
-
-
-
-
-
-module.exports = { getInstructionsByKeyword, }
+module.exports = { getInstructionsByKeyword };
