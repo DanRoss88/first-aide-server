@@ -1,5 +1,8 @@
-INSERT INTO bookmark (users_id, aid_id)
+INSERT INTO bookmark (users_id, instructions_id)
 VALUES
-(1, 2),
-(1, 5),
-(1, 7);
+(2, 2),
+(2, 15),
+(2, 10),
+(2, 16),
+(2, 13),
+(2, 20);
