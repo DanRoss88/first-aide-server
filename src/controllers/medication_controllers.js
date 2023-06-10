@@ -44,22 +44,21 @@ const createMedication = (medicalRecordsId, medicationName) => {
 
   // Edit user medication by ID
 
-  const editMedication = (medicationId, medicationName, medicalRecordsId) => {
+  // const editMedication = (medicationId, medicationName, medicalRecordsId) => {
 
-    return db
-      .query('UPDATE medication SET name = $1 WHERE id = $2 AND medical_records_id = $3 RETURNING *', [medicationName, medicationId, medicalRecordsId])
-      .then((data) => data.rows[0])
-      .catch((err) => {
-        console.log('Error editing medication:', err);
-        throw err;
-    });
-  };
+  //   return db
+  //     .query('UPDATE medication SET name = $1 WHERE id = $2 AND medical_records_id = $3 RETURNING *', [medicationName, medicationId, medicalRecordsId])
+  //     .then((data) => data.rows[0])
+  //     .catch((err) => {
+  //       console.log('Error editing medication:', err);
+  //       throw err;
+  //   });
+  // };
 
 
 
 module.exports = {
   getMedicationsByMedicalRecords,
   createMedication,
-  deleteMedication,
-  editMedication
+  deleteMedication
 };
