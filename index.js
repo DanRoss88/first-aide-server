@@ -50,7 +50,9 @@ app.post("/login", async (req, res) => {
   }
 
   // email exists :)
-  const user_id = user.rows[0].id;
+  const user_id = {
+    user_id: user.rows[0].id,
+  };
 
   const accessToken = jwt.sign(user_id, process.env.ACCESS_TOKEN_SECRET);
   res.json({ accessToken: accessToken });
