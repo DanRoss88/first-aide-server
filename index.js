@@ -5,7 +5,6 @@ const db = require("./src/config/config.db");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
 
-
 ///***Require Router Module***///
 
 // const bookmarkRouter = require('./src/routes/bookmark');
@@ -36,7 +35,8 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.post("/login", (req, res) => {});
