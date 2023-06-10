@@ -41,20 +41,19 @@ const deleteAllergy = (allergyId, medicalRecordsId) => {
 
 // // Edit user allergy by ID
 
-const editAllergy = (allergyId, allergyName, allergySeverity, medicalRecordsId) => {
+// const editAllergy = (allergyId, allergyName, allergySeverity, medicalRecordsId) => {
 
-  return db
-    .query('UPDATE allergy SET name = $1, severity = $2 WHERE id = $3 AND medical_records_id = $4 RETURNING *', [allergyName, allergySeverity, allergyId, medicalRecordsId])  
-    .then((data) => data.rows[0])
-    .catch((err) => {
-      console.log('Error editing allergy:', err);
-      throw err;
-  });
-};
+//   return db
+//     .query('UPDATE allergy SET name = $1, severity = $2 WHERE id = $3 AND medical_records_id = $4 RETURNING *', [allergyName, allergySeverity, allergyId, medicalRecordsId])  
+//     .then((data) => data.rows[0])
+//     .catch((err) => {
+//       console.log('Error editing allergy:', err);
+//       throw err;
+//   });
+// };
 
 module.exports = {
   getAllergiesByMedicalRecords,
   createAllergy,
-  deleteAllergy,
-  editAllergy
+  deleteAllergy
 };

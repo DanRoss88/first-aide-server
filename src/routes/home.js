@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
-const db = require('../config/config.db');
+const homeRouter = express.Router();
+
 
 router.get('/', (req, res) => {
   res.send('Hello World!')
 }
 )
 
-module.exports = router;
+module.exports = homeRouter;

@@ -44,22 +44,21 @@ const createCondition = (medicalRecordsId, conditionName) => {
 
   //// Edit user condition by ID
 
-  const editCondition = (conditionId, conditionName, medicalRecordsId) => {
+  // const editCondition = (conditionId, conditionName, medicalRecordsId) => {
 
-    return db
-      .query('UPDATE condition SET name = $1 WHERE id = $2 AND medical_records_id = $3 RETURNING *', [conditionName, conditionId, medicalRecordsId])
-      .then((data) => data.rows[0])
-      .catch((err) => {
-        console.log('Error editing condition:', err);
-        throw err;
-    });
-  };
+  //   return db
+  //     .query('UPDATE condition SET name = $1 WHERE id = $2 AND medical_records_id = $3 RETURNING *', [conditionName, conditionId, medicalRecordsId])
+  //     .then((data) => data.rows[0])
+  //     .catch((err) => {
+  //       console.log('Error editing condition:', err);
+  //       throw err;
+  //   });
+  // };
 
 
 
 module.exports = {
   getConditionsByMedicalRecords,
   createCondition,
-  deleteCondition,
-  editCondition
+  deleteCondition
 };

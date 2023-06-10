@@ -1,31 +1,34 @@
-// const Hospital = require('../models/hospital_model');
+const db = require('../config/config.db');
 
-// // Get hospitals by city
-// async function getHospitalsByCity(req, res) {
-//   try {
-//     const hospitals = await Hospital.find({ city_id: req.params.city_id });
-//     res.json(hospitals);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to retrieve hospitals' });
-//   }
-// }
+//// Hospital Controller Functions
 
-// // Get hospital by ID
-// async function getHospitalById(req, res) {
-//   try {
-//     const hospital = await Hospital.findById(req.params.id);
-//     if (hospital) {
-//       res.json(hospital);
-//     } else {
-//       res.status(404).json({ error: 'Hospital not found' });
+// Get all hospitals by city ID /// STRETCH // NEARBY CITIES HOSPITALS ///
+
+// const getAllHospitals = (cityId) => {
+  
+//     return db
+//       .query('SELECT * FROM hospital WHERE city_id = $1', [cityId])
+//       .then((data) => data.rows)
+//       .catch((err) => {
+//         console.log('Error retrieving hospitals:', err);
+//         throw err;
+//       });
 //     }
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to retrieve hospital' });
-//   }
-// }
 
 
-// module.exports = {
-//   getHospitalsByCity,
-//   getHospitalById
-// };
+    /// Get all hospitals by user city ID
+
+const getAllHospitalsByUserCity = (userId) => {
+
+  return db
+    .query('SELECT * FROM hospital WHERE city_id = (SELECT city_id FROM users WHERE id = $1)', [userId])
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.log('Error retrieving hospitals:', err);
+      throw err;
+    });
+  }
+
+  module.exports = {
+    getAllHospitalsByUserCity
+  };

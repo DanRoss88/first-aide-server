@@ -2,9 +2,9 @@ const express = require('express');
 const mRRouter = express.Router();
 const db = require('../config/config.db');
 const { getUserMedicalInfo, updateUserMedicalInfo } = require('../controllers/medical_records_controllers');  
-const { getAllergiesByMedicalRecords, createAllergy, deleteAllergy, editAllergy } = require('../controllers/allergy_controllers');
-const { getConditionsByMedicalRecords, createCondition, deleteCondition, editCondition } = require('../controllers/condition_controllers');
-const { getMedicationsByMedicalRecords, createMedication, deleteMedication, editMedication } = require('../controllers/medication_controllers');
+const { getAllergiesByMedicalRecords, createAllergy, deleteAllergy } = require('../controllers/allergy_controllers');
+const { getConditionsByMedicalRecords, createCondition, deleteCondition } = require('../controllers/condition_controllers');
+const { getMedicationsByMedicalRecords, createMedication, deleteMedication } = require('../controllers/medication_controllers');
 
 ////////////////////////////// MEDICAL RECORDS //////////////////////////////
 
@@ -92,20 +92,20 @@ mRRouter.delete('/allergies/:allergyId/:medicalRecordsId', (req, res) => {
 
 
 // Edit user allergy by ID
-mRRouter.put('/allergies/:allergyId/:medicalRecordsId', (req, res) => {
-  const allergyId = req.params.allergyId;
-  const medicalRecordsId = req.params.medicalRecordsId;
-  const { allergyName, allergySeverity } = req.body;
+// mRRouter.put('/allergies/:allergyId/:medicalRecordsId', (req, res) => {
+//   const allergyId = req.params.allergyId;
+//   const medicalRecordsId = req.params.medicalRecordsId;
+//   const { allergyName, allergySeverity } = req.body;
 
-  editAllergy(allergyId, allergyName, allergySeverity, medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-      console.log('Allergy edited');
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'An error occurred' });
-    });
-});
+//   editAllergy(allergyId, allergyName, allergySeverity, medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//       console.log('Allergy edited');
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: 'An error occurred' });
+//     });
+// });
 
 
 /////// CONDITIONS ///////   
@@ -160,20 +160,20 @@ mRRouter.delete('/conditions/:conditionId/:medicalRecordsId', (req, res) => {
 
 // Edit user condition by ID
 
-mRRouter.put('/conditions/:conditionId/:medicalRecordsId', (req, res) => {
-  const conditionId = req.params.conditionId;
-  const medicalRecordsId = req.params.medicalRecordsId;
-  const { conditionName } = req.body;
+// mRRouter.put('/conditions/:conditionId/:medicalRecordsId', (req, res) => {
+//   const conditionId = req.params.conditionId;
+//   const medicalRecordsId = req.params.medicalRecordsId;
+//   const { conditionName } = req.body;
 
-  editCondition(conditionId, conditionName, medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-      console.log('Condition edited');
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'An error occurred' });
-    });
-});
+//   editCondition(conditionId, conditionName, medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//       console.log('Condition edited');
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: 'An error occurred' });
+//     });
+// });
 
 
 ////// MEDICATIONS //////
@@ -228,20 +228,20 @@ mRRouter.delete('/medications/:medicationId/:medicalRecordsId', (req, res) => {
 
 // Edit user medication by ID
 
-mRRouter.put('/medications/:medicationId/:medicalRecordsId', (req, res) => {
-  const medicationId = req.params.medicationId;
-  const medicalRecordsId = req.params.medicalRecordsId;
-  const { medicationName } = req.body;
+// mRRouter.put('/medications/:medicationId/:medicalRecordsId', (req, res) => {
+//   const medicationId = req.params.medicationId;
+//   const medicalRecordsId = req.params.medicalRecordsId;
+//   const { medicationName } = req.body;
 
-  editMedication(medicationId, medicationName, medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-      console.log('Medication edited');
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'An error occurred' });
-    });
-});
+//   editMedication(medicationId, medicationName, medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//       console.log('Medication edited');
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: 'An error occurred' });
+//     });
+// });
 
 
 
