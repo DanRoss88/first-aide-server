@@ -1,6 +1,6 @@
 const express = require('express');
 const bookmarkRouter = express.Router();
-const { getAllBookmarks, createBookmark, deleteBookmark } = require('../controllers/bookmark_controllers');
+const { getAllBookmarks, createBookmark, deleteBookmark, editBookmark } = require('../controllers/bookmark_controllers');
 
 // // Get all bookmarks by user ID
 // bookmarkRouter.get('/:userID', (req, res) => {
@@ -86,7 +86,22 @@ bookmarkRouter.post('/', (req, res) => {
 });
 
 
-// Delete a bookmark by bookmark ID
+//// Edit a bookmark title 
+
+bookmarkRouter.put('/:bookmarkId', (req, res) => {
+  const { bookmarkId, title, userId } = req.body;
+   
+  editBookmark(bookmarkId, title, userId)
+    .then((bookmark) => {
+      res.json(bookmark);
+      console.log(bookmark, 'Bookmark title edited');
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Failed to edit bookmark title' });
+    });
+});
+
+//// Delete a bookmark by bookmark ID
 bookmarkRouter.delete('/:bookmarkId', (req, res) => {
   const { bookmarkId } = req.params;
   deleteBookmark(bookmarkId)
