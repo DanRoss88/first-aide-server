@@ -25,7 +25,7 @@ const userRouter = require("./src/routes/user");
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(authenticateToken);
+// app.use(authenticateToken);
 
 app.use("/users", userRouter);
 // app.use("/login", loginRouter);
