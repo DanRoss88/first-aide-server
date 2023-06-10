@@ -25,6 +25,8 @@ const userRouter = require("./src/routes/user");
 
 app.use(express.json());
 app.use(morgan("dev"));
+// app.use(authenticateToken);
+
 app.use("/users", userRouter);
 // app.use("/login", loginRouter);
 // app.use("/register", registerRouter);
@@ -37,6 +39,10 @@ app.listen(port, () => {
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.get("/test", (req, res) => {
+  res.send("Hello " + req.payload.name);
 });
 
 app.post("/login", async (req, res) => {
@@ -52,22 +58,28 @@ app.post("/login", async (req, res) => {
   }
 
   // email exists :)
-  const user_id = {
+  const payload = {
     user_id: user.rows[0].id,
+    email: user.rows[0].email,
+    name: user.rows[0].username,
   };
 
-  const accessToken = jwt.sign(user_id, process.env.ACCESS_TOKEN_SECRET);
+  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
   res.json({ accessToken: accessToken });
 });
 
 function authenticateToken(req, res, next) {
+  if (req.path === "/login" || req.path === "/register") {
+    return next();
+  }
+
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_id) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if (err) return res.sendStatus(403);
-    req.user_id = user_id;
+    req.payload = payload;
     next();
   });
 }
