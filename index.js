@@ -3,6 +3,7 @@ const app = express();
 const database = require("./src/config/config.db");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
+require("dotenv").config();
 
 ///***Require Router Module***///
 
@@ -40,6 +41,7 @@ app.get("/", (req, res) => {
 
 app.post("/login", async (req, res) => {
   const email = req.body.email;
+  console.log("helloooo", req.body);
 
   // check if email exists in database
   const user = await database.query("SELECT * FROM users WHERE email = $1", [
@@ -57,3 +59,15 @@ app.post("/login", async (req, res) => {
   const accessToken = jwt.sign(user_id, process.env.ACCESS_TOKEN_SECRET);
   res.json({ accessToken: accessToken });
 });
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_id) => {
+    if (err) return res.sendStatus(403);
+    req.user_id = user_id;
+    next();
+  });
+}
