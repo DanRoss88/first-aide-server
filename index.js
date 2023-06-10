@@ -12,13 +12,8 @@ const morgan = require("morgan");
 // const hospitalRouter = require('./src/routes/hospital');
 // const medicalRecordsRouter = require('./src/routes/medical_records');
 
-
-
-  ///***Use Router Module***///
-
-const userRouter = require("./src/routes/user");
-const loginRouter = require("./src/routes/login");
-const registerRouter = require("./src/routes/register");
+// const loginRouter = require("./src/routes/login");
+// const registerRouter = require("./src/routes/register");
 
 ///***Use Router Module***///
 // app.use('/api',aidRouter);
@@ -27,14 +22,13 @@ const registerRouter = require("./src/routes/register");
 // app.use('/api',medicalRecordsRouter);
 // app.use('/api',userRouter);
 
-
-
+const userRouter = require("./src/routes/user");
 
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/users", userRouter);
-app.use("/login", loginRouter);
-app.use("/register", registerRouter);
+// app.use("/login", loginRouter);
+// app.use("/register", registerRouter);
 
 ///***Start Server***///
 const port = 8000;
