@@ -48,9 +48,4 @@ userRouter.post("/", async (req, res) => {
 
 module.exports = userRouter;
 
-// const { getAllUsers } = require("../controllers/user_controllers");
-// router.get("/", getAllUsers);
-// router.get('/users/:id', getUserById);
-// router.post('/users', createUser);
-// router.put('/users/:id', updateUser);
-// router.delete('/users/:id', deleteUser);
+
