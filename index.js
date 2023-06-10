@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
-
-const db = require("./src/config/config.db");
+const database = require("./src/config/config.db");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
 
@@ -39,4 +38,20 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/login", (req, res) => {});
+app.post("/login", async (req, res) => {
+  const email = req.body.email;
+
+  // check if email exists in database
+  const user = await database.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
+  if (user.rows.length === 0) {
+    return res.status(401).json({ error: "User does not exist." });
+  }
+
+  // email exists :)
+  const user_id = user.rows[0].id;
+
+  const accessToken = jwt.sign(user_id, process.env.ACCESS_TOKEN_SECRET);
+  res.json({ accessToken: accessToken });
+});
