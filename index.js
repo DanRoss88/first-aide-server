@@ -3,7 +3,6 @@ const app = express();
 const database = require("./src/config/config.db");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
-
 require("dotenv").config();
 
 ///***Require Router Module***///
