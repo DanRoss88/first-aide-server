@@ -1,46 +1,65 @@
-// const Medication = require('../models/Medication');
+const db = require('../config/config.db');
 
-// // Get medications by medical records ID
-// async function getMedicationsByMedicalRecords(req, res) {
-//   const { medical_records_id } = req.params;
+// Medication Controller Functions
 
-//   try {
-//     const medications = await Medication.findByMedicalRecordsId(medical_records_id);
-//     res.json(medications);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to retrieve medications.' });
-//   }
-// }
 
-// // Create a new medication
-// async function createMedication(req, res) {
-//   const { name, medical_records_id } = req.body;
+// Get all medications by medical records ID
 
-//   try {
-//     const medication = await Medication.create(name, medical_records_id);
-//     res.status(201).json(medication);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to create medication.' });
-//   }
-// }
+const getMedicationsByMedicalRecords = (medicalRecordsId) => {
 
-// // Delete medication by ID
-// async function deleteMedication(req, res) {
-//   const { id } = req.params;
+  return db
+    .query('SELECT * FROM medication WHERE medical_records_id = $1', [medicalRecordsId])
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.log('Error retrieving medications:', err);
+      throw err;
+    });
+  };
 
-//   try {
-//     const medication = await Medication.deleteById(id);
-//     if (!medication) {
-//       return res.status(404).json({ error: 'Medication not found.' });
-//     }
-//     res.sendStatus(204);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to delete medication.' });
-//   }
-// }
+// Create a new user medication by medical records ID
 
-// module.exports = {
-//   getMedicationsByMedicalRecords,
-//   createMedication,
-//   deleteMedication,
-// };
+const createMedication = (medicalRecordsId, medicationName) => {
+
+  return db 
+    .query('INSERT INTO medication (medical_records_id, name) VALUES ($1, $2) RETURNING *', [medicalRecordsId, medicationName]) 
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error creating medication:', err);
+      throw err;
+    });
+  };
+
+  // Delete user medication by ID
+
+  const deleteMedication = (medicationId, medicalRecordsId) => {
+
+    return db
+      .query('DELETE FROM medication WHERE id = $1 AND medical_records_id = $2 RETURNING *', [medicationId, medicalRecordsId])
+      .then((data) => data.rows[0])
+      .catch((err) => {
+        console.log('Error deleting medication:', err);
+        throw err;
+    });
+  };
+
+  // Edit user medication by ID
+
+  const editMedication = (medicationId, medicationName, medicalRecordsId) => {
+
+    return db
+      .query('UPDATE medication SET name = $1 WHERE id = $2 AND medical_records_id = $3 RETURNING *', [medicationName, medicationId, medicalRecordsId])
+      .then((data) => data.rows[0])
+      .catch((err) => {
+        console.log('Error editing medication:', err);
+        throw err;
+    });
+  };
+
+
+
+module.exports = {
+  getMedicationsByMedicalRecords,
+  createMedication,
+  deleteMedication,
+  editMedication
+};

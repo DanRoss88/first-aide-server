@@ -1,40 +1,33 @@
-// const MedicalRecords = require('../models/medical_records_model');
+const db = require('../config/config.db');
 
 // // Medical Info Controller Functions
 
-// // Get user's medical information
-// async function getUserMedicalInfo(req, res) {
-//   try {
-//     const medicalInfo = await MedicalRecords.findOne({ user_id: req.params.user_id });
-//     if (medicalInfo) {
-//       res.json(medicalInfo);
-//     } else {
-//       res.status(404).json({ error: 'Medical information not found' });
-//     }
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to retrieve medical information' });
-//   }
-// }
+// Get user's medical information
+const getUserMedicalInfo = (userId) => {
 
-// // Update user's medical information
-// async function updateUserMedicalInfo(req, res) {
-//   try {
-//     const updatedMedicalInfo = await MedicalRecords.findOneAndUpdate(
-//       { user_id: req.params.user_id },
-//       req.body,
-//       { new: true }
-//     );
-//     if (updatedMedicalInfo) {
-//       res.json(updatedMedicalInfo);
-//     } else {
-//       res.status(404).json({ error: 'Medical information not found' });
-//     }
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to update medical information' });
-//   }
-// }
+  return db
+    .query('SELECT * FROM medical_records WHERE users_id = $1', [userId])
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error retrieving medical information:', err);
+      throw err;
+    });
+  };
 
-// module.exports = {
-//   getUserMedicalInfo,
-//   updateUserMedicalInfo,
-// };
+// Update user's medical information
+
+const updateUserMedicalInfo = (userID, medicalRecordId) => {
+
+  return db
+    .query('UPDATE medical_records SET users_id = $1 WHERE id = $2 RETURNING *', [userID, medicalRecordId])
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error updating medical information:', err);
+      throw err;
+    });
+  };  
+
+module.exports = {
+  getUserMedicalInfo,
+  updateUserMedicalInfo,
+};

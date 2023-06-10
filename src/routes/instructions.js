@@ -14,7 +14,7 @@ instructionsRouter.get("/", async (req, res) => {
 });
 
 
-instructionsRouter.get('/instructions/:keyword', (req, res) => {
+instructionsRouter.get('/:keyword', (req, res) => {
   const inputString = req.params.keyword;
 
   getInstructionsByKeyword(inputString)

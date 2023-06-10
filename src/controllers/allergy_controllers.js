@@ -1,46 +1,60 @@
-// const Allergy = require('../models/Allergy');
+const db = require('../config/config.db');
 
 // // Get allergies by medical records ID
-// async function getAllergiesByMedicalRecords(req, res) {
-//   const { medical_records_id } = req.params;
+const getAllergiesByMedicalRecords = (medicalRecordsId) => {
 
-//   try {
-//     const allergies = await Allergy.findByMedicalRecordsId(medical_records_id);
-//     res.json(allergies);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to retrieve allergies.' });
-//   }
-// }
+  return db
+    .query('SELECT * FROM allergy WHERE medical_records_id = $1', [medicalRecordsId])
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.log('Error retrieving allergies:', err);
+      throw err;
+    });
+  };
 
 // // Create a new allergy
-// async function createAllergy(req, res) {
-//   const { name, medical_records_id } = req.body;
+const createAllergy = (medicalRecordsId, allergyName, allergySeverity) => {
 
-//   try {
-//     const allergy = await Allergy.create(name, medical_records_id);
-//     res.status(201).json(allergy);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to create allergy.' });
-//   }
-// }
 
-// // Delete allergy by ID
-// async function deleteAllergy(req, res) {
-//   const { id } = req.params;
+  return db
+    .query('INSERT INTO allergy (medical_records_id, name, severity) VALUES ($1, $2, $3) RETURNING *', [medicalRecordsId, allergyName, allergySeverity])
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error creating allergy:', err);
+      throw err;
+    });
+  };
 
-//   try {
-//     const allergy = await Allergy.deleteById(id);
-//     if (!allergy) {
-//       return res.status(404).json({ error: 'Allergy not found.' });
-//     }
-//     res.sendStatus(204);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to delete allergy.' });
-//   }
-// }
 
-// module.exports = {
-//   getAllergiesByMedicalRecords,
-//   createAllergy,
-//   deleteAllergy,
-// };
+// // Delete user allergy by ID
+
+const deleteAllergy = (allergyId, medicalRecordsId) => {
+
+  return db
+    .query('DELETE FROM allergy WHERE id = $1 AND medical_records_id = $2 RETURNING *', [allergyId, medicalRecordsId])  
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error deleting allergy:', err);
+      throw err;
+  });
+};
+
+// // Edit user allergy by ID
+
+const editAllergy = (allergyId, allergyName, allergySeverity, medicalRecordsId) => {
+
+  return db
+    .query('UPDATE allergy SET name = $1, severity = $2 WHERE id = $3 AND medical_records_id = $4 RETURNING *', [allergyName, allergySeverity, allergyId, medicalRecordsId])  
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error editing allergy:', err);
+      throw err;
+  });
+};
+
+module.exports = {
+  getAllergiesByMedicalRecords,
+  createAllergy,
+  deleteAllergy,
+  editAllergy
+};

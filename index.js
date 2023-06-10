@@ -13,7 +13,7 @@ const userRouter = require("./src/routes/user");
 const loginRouter = require("./src/routes/login");
 const registerRouter = require("./src/routes/register");
 const instructionsRouter = require("./src/routes/instructions");
-
+const mRRouter = require("./src/routes/medical_records");
 
 
 ///***Use Router Module***///
@@ -33,7 +33,7 @@ app.use("/users", userRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use('/instructions', instructionsRouter);
-
+app.use('/medicalRecords', mRRouter);
 
 ///***Start Server***///
 const port = 8000;
