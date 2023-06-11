@@ -8,14 +8,13 @@ require("dotenv").config();
 ///***Require Router Module***///
 
 const userRouter = require("./src/routes/user");
-const loginRouter = require("./src/routes/login");
-const registerRouter = require("./src/routes/register");
+// const loginRouter = require("./src/routes/login");
+// const registerRouter = require("./src/routes/register");
 const instructionsRouter = require("./src/routes/instructions");
 const mRRouter = require("./src/routes/medical_records");
 const bookmarkRouter = require("./src/routes/bookmark");
 const hospitalRouter = require("./src/routes/hospital");
 const emergContRouter = require("./src/routes/emergency_contact");
-
 
 ///***Use Router Module***///
 // app.use('/api',aidRouter);
@@ -24,24 +23,21 @@ const emergContRouter = require("./src/routes/emergency_contact");
 // app.use('/api',medicalRecordsRouter);
 // app.use('/api',userRouter);
 
-
 ///***Use Middleware***///
 app.use(express.json());
 app.use(morgan("dev"));
-
 
 ///***Use Router Module***///
 // app.use(authenticateToken);
 
 app.use("/users", userRouter);
-app.use("/login", loginRouter);
-app.use("/register", registerRouter);
-app.use('/instructions', instructionsRouter);
-app.use('/medicalRecords', mRRouter);
-app.use('/bookmarks', bookmarkRouter);
-app.use('/hospitals', hospitalRouter);
-app.use('/emergencyContacts', emergContRouter);
-
+// app.use("/login", loginRouter);
+// app.use("/register", registerRouter);
+app.use("/instructions", instructionsRouter);
+app.use("/medicalRecords", mRRouter);
+app.use("/bookmarks", bookmarkRouter);
+app.use("/hospitals", hospitalRouter);
+app.use("/emergencyContacts", emergContRouter);
 
 ///***Start Server***///
 const port = 8000;
