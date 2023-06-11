@@ -24,7 +24,6 @@ const emergContRouter = require("./src/routes/emergency_contact");
 // app.use('/api',medicalRecordsRouter);
 // app.use('/api',userRouter);
 
-const userRouter = require("./src/routes/user");
 
 ///***Use Middleware***///
 app.use(express.json());
