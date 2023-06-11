@@ -25,6 +25,8 @@ const jwt = require("jsonwebtoken");
 
 hospitalRouter.get("/", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
+
+  console.log(token);
   let userId;
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
