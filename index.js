@@ -17,7 +17,7 @@ const emergContRouter = require("./src/routes/emergency_contact");
 ///***Use Middleware***///
 app.use(express.json());
 app.use(morgan("dev"));
-// app.use(authenticateToken);
+app.use(authenticateToken);
 
 ///***Use Router Module***///
 app.use("/users", userRouter);
