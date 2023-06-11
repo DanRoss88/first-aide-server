@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const hospitalRouter = express.Router();
-const { getAllHospitalsByUserCity } = require('../controllers/hospital_controllers');
-
-
-
+const {
+  getAllHospitalsByUserCity,
+} = require("../controllers/hospital_controllers");
+const jwt = require("jsonwebtoken");
 
 ///// Hospital Routes /////
 
@@ -23,17 +23,24 @@ const { getAllHospitalsByUserCity } = require('../controllers/hospital_controlle
 
 /// Get all hospitals by user city ID
 
-hospitalRouter.get('/:userId', (req, res) => {
-  const userId = req.params.userId;
+hospitalRouter.get("/", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  console.log(token);
+  let userId;
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    if (err) return res.sendStatus(403).json({ error: "Invalid token." });
+    userId = payload.user_id;
+  });
 
   getAllHospitalsByUserCity(userId)
     .then((data) => {
       res.json(data);
     })
     .catch((error) => {
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).json({ error: "An error occurred" });
     });
-  });
-
+});
 
 module.exports = hospitalRouter;
