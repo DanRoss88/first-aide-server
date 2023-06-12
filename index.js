@@ -17,7 +17,7 @@ const emergContRouter = require("./src/routes/emergency_contact");
 ///***Use Middleware***///
 app.use(express.json());
 app.use(morgan("dev"));
-// app.use(authenticateToken);
+app.use(authenticateToken);
 
 ///***Use Router Module***///
 app.use("/users", userRouter);
@@ -42,7 +42,7 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   console.log("helloooo", req.body);
 
   // check if email exists in database
@@ -68,9 +68,11 @@ app.post("/register", async (req, res) => {
   try {
     const { username, email, city } = req.body;
 
+    let lowerCaseEmail = email.toLowerCase();
+
     // Check if user already exists
     const user = await database.query("SELECT * FROM users WHERE email = $1", [
-      email,
+      lowerCaseEmail,
     ]);
     if (user.rows.length > 0) {
       return res.status(401).json({ error: "User already exists." });
@@ -90,12 +92,12 @@ app.post("/register", async (req, res) => {
     // Insert new user
     const newUser = await database.query(
       "INSERT INTO users (username, email, city_id) VALUES ($1, $2, $3) RETURNING *",
-      [username, email, cityId]
+      [username, lowerCaseEmail, cityId]
     );
 
     const createdUser = await database.query(
       "SELECT * FROM users WHERE email = $1",
-      [email]
+      [lowerCaseEmail]
     );
 
     const payload = {
