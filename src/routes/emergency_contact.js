@@ -39,16 +39,16 @@ emergContRouter.post("/", async (req, res) => {
     });
 });
 
-// Delete user emergency contact by phone and userId
+// Delete user emergency contact by contactId
 
-emergContRouter.delete("/:phone", async (req, res) => {
-  const phone = req.params.phone;
+emergContRouter.delete("/:contactId", async (req, res) => {
+  const contactId = req.params.contactId;
 
   const userId = await getUserId(req);
 
-  deleteEmergencyContact(phone, userId)
+  deleteEmergencyContact(contactId, userId)
     .then((data) => {
-      res.json(data);
+      res.send("Emergency Contact deleted");
       console.log("Emergency Contact deleted");
     })
     .catch((error) => {

@@ -36,11 +36,11 @@ const createEmergencyContact = (
 
 ///// Delete an emergency contact
 
-const deleteEmergencyContact = (phone, userId) => {
+const deleteEmergencyContact = (contactId, userId) => {
   return db
     .query(
-      "DELETE FROM emergency_contact WHERE phone = $1 AND users_id = $2 RETURNING *",
-      [phone, userId]
+      "DELETE FROM emergency_contact WHERE id = $1 AND users_id = $2 RETURNING *",
+      [contactId, userId]
     )
     .then((data) => data.rows[0])
     .catch((err) => {
