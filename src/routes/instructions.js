@@ -31,7 +31,6 @@
 //   }
 // });
 
-
 // instructionsRouter.get('/:keyword', (req, res) => {
 //   const inputString = req.params.keyword;
 
@@ -54,10 +53,10 @@
 
 ///// OPEN AI CODE /////
 
-const express = require('express');
+const express = require("express");
 const instructionsRouter = express.Router();
-require('dotenv').config();
-const { Configuration, OpenAIApi } = require('openai');
+require("dotenv").config();
+const { Configuration, OpenAIApi } = require("openai");
 const app = express();
 app.use(express.json());
 
@@ -67,7 +66,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-instructionsRouter.post('/', async (req, res) => {
+instructionsRouter.post("/", async (req, res) => {
   try {
     const { input } = req.body;
 
@@ -85,7 +84,7 @@ instructionsRouter.post('/', async (req, res) => {
 
     const generatedInstructions = instructions.data.choices[0].text.trim();
 
-    const titlePrompt = `Can you give me 1 - 2 keywords for these instructions, please:\n"${generatedInstructions}"\nTitle:`;
+    const titlePrompt = `Can you give me a title (maximum 2 words) for these instructions, please:\n"${generatedInstructions}"\nTitle:`;
     const title = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: titlePrompt,
@@ -100,16 +99,15 @@ instructionsRouter.post('/', async (req, res) => {
     const generatedTitle = title.data.choices[0].text.trim();
 
     return res.status(200).json({
-      success: true,
-      data: {
-        title: generatedTitle,
-        instructions: generatedInstructions,
-      },
+      title: generatedTitle,
+      instructions: generatedInstructions,
     });
   } catch (error) {
     return res.status(400).json({
       success: false,
-      error: error.response ? error.response.data : "There was an issue on the server"
+      error: error.response
+        ? error.response.data
+        : "There was an issue on the server",
     });
   }
 });
