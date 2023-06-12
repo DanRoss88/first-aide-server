@@ -49,8 +49,22 @@ const deleteEmergencyContact = (contactId, userId) => {
     });
 };
 
+const getEmergencyContactById = (contactId, userId) => {
+  return db
+    .query("SELECT * FROM emergency_contact WHERE id = $1 AND users_id = $2", [
+      contactId,
+      userId,
+    ])
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log("Error retrieving emergency contact:", err);
+      throw err;
+    });
+};
+
 module.exports = {
   getAllEmergencyContacts,
   createEmergencyContact,
   deleteEmergencyContact,
+  getEmergencyContactById,
 };

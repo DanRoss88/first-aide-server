@@ -4,6 +4,7 @@ const {
   getAllEmergencyContacts,
   createEmergencyContact,
   deleteEmergencyContact,
+  getEmergencyContactById,
 } = require("../controllers/emergency_contact_controllers");
 const getUserId = require("../helpers/getUserId");
 
@@ -50,6 +51,19 @@ emergContRouter.delete("/:contactId", async (req, res) => {
     .then((data) => {
       res.send("Emergency Contact deleted");
       console.log("Emergency Contact deleted");
+    })
+    .catch((error) => {
+      res.status(500).json({ error: "An error occurred" });
+    });
+});
+
+emergContRouter.get("/:id", async (req, res) => {
+  const userId = await getUserId(req);
+  const contactId = req.params.id;
+
+  getEmergencyContactById(contactId, userId)
+    .then((data) => {
+      res.json(data);
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
