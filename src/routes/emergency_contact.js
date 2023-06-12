@@ -25,11 +25,11 @@ emergContRouter.get("/", async (req, res) => {
 // Create a new emergency contact
 
 emergContRouter.post("/", async (req, res) => {
-  const { contactName, phone, relationship } = req.body;
+  const { name, phone, relationship } = req.body;
 
   const userId = await getUserId(req);
 
-  createEmergencyContact(userId, contactName, phone, relationship)
+  createEmergencyContact(userId, name, phone, relationship)
     .then((data) => {
       res.json(data);
       console.log("Emergency Contact created");
