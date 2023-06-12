@@ -112,7 +112,11 @@ app.post("/register", async (req, res) => {
 });
 
 function authenticateToken(req, res, next) {
-  if (req.path === "/login" || req.path === "/register") {
+  if (
+    req.path === "/login" ||
+    req.path === "/register" ||
+    req.path.startsWith("/instructions/")
+  ) {
     return next();
   }
 
