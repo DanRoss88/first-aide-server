@@ -34,7 +34,17 @@ emergContRouter.get("/", (req, res) => {
 // Create a new emergency contact
 
 emergContRouter.post("/", (req, res) => {
-  const { userId, contactName, phone, relationship } = req.body;
+  const { contactName, phone, relationship } = req.body;
+
+  const token = req.headers.authorization.split(" ")[1];
+
+  console.log(token);
+  let userId;
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    if (err) return res.sendStatus(403).json({ error: "Invalid token." });
+    userId = payload.user_id;
+  });
 
   createEmergencyContact(userId, contactName, phone, relationship)
     .then((data) => {
