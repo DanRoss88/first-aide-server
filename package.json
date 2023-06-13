@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "reset-db": "psql -d first_aide -f ./src/config/01_db_reset.sql"
   },
   "author": "",
   "license": "ISC",

@@ -22,6 +22,19 @@ const createBookmark = (title, instructions, userId) => {
     });
 };
 
+// Edit a bookmark
+
+const editBookmark = (title, bookmarkId, userId) => {
+  return db
+    .query('UPDATE bookmark SET title = $1 WHERE id = $2 AND users_id = $3 RETURNING *', [title, bookmarkId, userId])
+    .then((data) => data.rows[0])
+    .catch((err) => {
+      console.log('Error editing bookmark:', err);
+      throw err;
+    });
+}
+
+
 // Delete a bookmark
 const deleteBookmark = (bookmarkId, userId) => {
   return db
@@ -36,5 +49,6 @@ const deleteBookmark = (bookmarkId, userId) => {
 module.exports = {
   getAllBookmarks,
   createBookmark,
+  editBookmark,
   deleteBookmark,
 };
