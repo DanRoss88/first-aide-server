@@ -12,5 +12,5 @@ First Aid medical app for LHL final project
 ##### to connect the server and database
 ##### make sure to configure the .env file for your local database
 
-
+#### npm run reset-db for Database reset and seed
 
