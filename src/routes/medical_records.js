@@ -5,11 +5,12 @@ const {
   getUserAllergy,
   getUserCondition,
   getUserMedication,
+  deleteUserAllergy,
 } = require("../controllers/medical_records_controllers");
 // const {
 //   getAllergiesByMedicalRecords,
 //   createAllergy,
-//   deleteAllergy,
+// deleteAllergy,
 // } = require("../controllers/allergy_controllers");
 // const {
 //   getConditionsByMedicalRecords,
@@ -128,9 +129,9 @@ mRRouter.post("/allergies", (req, res) => {
 });
 
 // Delete user allergy by ID
-mRRouter.delete("/allergies/:allergyId/:medicalRecordsId", (req, res) => {
+mRRouter.delete("/allergies/:allergyId/", (req, res) => {
   const allergyId = req.params.allergyId;
-  const medicalRecordsId = req.params.medicalRecordsId;
+  const userId = getUserId(req);
 
   deleteAllergy(allergyId, medicalRecordsId)
     .then((data) => {
