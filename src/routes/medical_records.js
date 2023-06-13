@@ -35,7 +35,15 @@ const getUserId = require("../helpers/getUserId");
 //     });
 // });
 
-// GET USER'S MEDICAL INFORMATION
+/* 
+
+Retrieve user's medical record ID ->
+{
+  "id": 1,
+  "users_id": 1, 
+}
+
+*/
 mRRouter.get("/", (req, res) => {
   const userId = getUserId(req);
 
@@ -48,23 +56,24 @@ mRRouter.get("/", (req, res) => {
     });
 });
 
-// UPDATE USER'S MEDICAL INFORMATION
-mRRouter.post("/:medicalRecordId", (req, res) => {
-  const userId = getUserId(req);
-  const medicalRecordId = req.params.medicalRecordId;
+// UPDATE USER'S MEDICAL INFORMATION -> why would we wanna update medical record id...?
+// mRRouter.post("/:medicalRecordId", (req, res) => {
+//   const userId = getUserId(req);
+//   const medicalRecordId = req.params.medicalRecordId;
 
-  updateUserMedicalInfo(userId, medicalRecordId)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "An error occurred" });
-    });
-});
+//   updateUserMedicalInfo(userId, medicalRecordId)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: "An error occurred" });
+//     });
+// });
 
 // ALLERGIES
 
 // Get allergies by medical records ID
+// Anyone other than user should not be able to access this route :(
 mRRouter.get("/allergies/:medicalRecordsId", (req, res) => {
   const medicalRecordsId = req.params.medicalRecordsId;
 
