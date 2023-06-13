@@ -101,17 +101,17 @@ mRRouter.get("/", async (req, res) => {
 
 // Get allergies by medical records ID
 // Anyone other than user should not be able to access this route :(
-mRRouter.get("/allergies/:medicalRecordsId", (req, res) => {
-  const medicalRecordsId = req.params.medicalRecordsId;
+// mRRouter.get("/allergies/:medicalRecordsId", (req, res) => {
+//   const medicalRecordsId = req.params.medicalRecordsId;
 
-  getAllergiesByMedicalRecords(medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "An error occurred" });
-    });
-});
+//   getAllergiesByMedicalRecords(medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: "An error occurred" });
+//     });
+// });
 
 // Create a new allergy
 mRRouter.post("/allergies", (req, res) => {

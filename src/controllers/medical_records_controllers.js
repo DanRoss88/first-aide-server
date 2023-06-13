@@ -4,7 +4,7 @@ const db = require("../config/config.db");
 
 const getUserAllergy = async (userId) => {
   const allergyData = await db.query(
-    `SELECT allergy.name, allergy.severity
+    `SELECT allergy.id, allergy.name, allergy.severity
     FROM medical_records
     JOIN allergy ON medical_records.id = allergy.medical_records_id
     WHERE users_id = $1`,
@@ -16,7 +16,7 @@ const getUserAllergy = async (userId) => {
 
 const getUserCondition = async (userId) => {
   const conditionData = await db.query(
-    `SELECT condition.name 
+    `SELECT condition.id, condition.name 
     FROM medical_records
     JOIN "condition" ON medical_records.id = "condition".medical_records_id
     WHERE users_id = $1`,
@@ -27,7 +27,7 @@ const getUserCondition = async (userId) => {
 
 const getUserMedication = async (userId) => {
   const medicationData = await db.query(
-    `SELECT medication.name
+    `SELECT medication.id, medication.name
     FROM medical_records
     JOIN medication ON medical_records.id = medication.medical_records_id
     WHERE users_id = $1`,
