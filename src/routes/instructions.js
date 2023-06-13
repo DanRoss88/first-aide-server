@@ -74,7 +74,7 @@ instructionsRouter.post("/", async (req, res) => {
     const instructions = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
-      max_tokens: 100,
+      max_tokens: 500,
       temperature: 0.5,
       top_p: 1.0,
       frequency_penalty: 0.0,
@@ -84,12 +84,12 @@ instructionsRouter.post("/", async (req, res) => {
 
     const generatedInstructions = instructions.data.choices[0].text.trim();
 
-    const titlePrompt = `Can you give me a title (maximum 2 words) for these instructions, please:\n"${generatedInstructions}"\nTitle:`;
+    const titlePrompt = `Can you give me a title (minimum 1 word, maximum 2 words) for these instructions, please:\n"${generatedInstructions}"\nTitle:`;
     const title = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: titlePrompt,
       max_tokens: 10,
-      temperature: 0.0,
+      temperature: 0.5,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
@@ -97,6 +97,11 @@ instructionsRouter.post("/", async (req, res) => {
     });
 
     const generatedTitle = title.data.choices[0].text.trim();
+
+    console.log({
+      title: generatedTitle,
+      instructions: generatedInstructions,
+    });
 
     return res.status(200).json({
       title: generatedTitle,
