@@ -2,24 +2,25 @@ const express = require("express");
 const mRRouter = express.Router();
 const db = require("../config/config.db");
 const {
-  getUserMedicalInfo,
-  updateUserMedicalInfo,
+  getUserAllergy,
+  getUserCondition,
+  getUserMedication,
 } = require("../controllers/medical_records_controllers");
-const {
-  getAllergiesByMedicalRecords,
-  createAllergy,
-  deleteAllergy,
-} = require("../controllers/allergy_controllers");
-const {
-  getConditionsByMedicalRecords,
-  createCondition,
-  deleteCondition,
-} = require("../controllers/condition_controllers");
-const {
-  getMedicationsByMedicalRecords,
-  createMedication,
-  deleteMedication,
-} = require("../controllers/medication_controllers");
+// const {
+//   getAllergiesByMedicalRecords,
+//   createAllergy,
+//   deleteAllergy,
+// } = require("../controllers/allergy_controllers");
+// const {
+//   getConditionsByMedicalRecords,
+//   createCondition,
+//   deleteCondition,
+// } = require("../controllers/condition_controllers");
+// const {
+//   getMedicationsByMedicalRecords,
+//   createMedication,
+//   deleteMedication,
+// } = require("../controllers/medication_controllers");
 const getUserId = require("../helpers/getUserId");
 
 ////////////////////////////// MEDICAL RECORDS //////////////////////////////
@@ -45,16 +46,41 @@ Current: Retrieve user's medical record ID ->
 Fix: Should retrieve user's medical ID, then respond with all medical info associated with that ID
 
 */
-mRRouter.get("/", (req, res) => {
-  const userId = getUserId(req);
+mRRouter.get("/", async (req, res) => {
+  try {
+    const userId = getUserId(req);
+    const fullMedicalInfo = {};
 
-  getUserMedicalInfo(userId)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "An error occurred" });
-    });
+    const allergyPromise = getUserAllergy(userId)
+      .then((data) => {
+        fullMedicalInfo.allergies = data;
+      })
+      .catch((error) => {
+        throw new Error("Fetch allergy error");
+      });
+
+    const conditionPromise = getUserCondition(userId)
+      .then((data) => {
+        fullMedicalInfo.conditions = data;
+      })
+      .catch((error) => {
+        throw new Error("Fetch condition error");
+      });
+
+    const medicationPromise = getUserMedication(userId)
+      .then((data) => {
+        fullMedicalInfo.medications = data;
+      })
+      .catch((error) => {
+        throw new Error("Fetch medication error");
+      });
+
+    await Promise.all([allergyPromise, conditionPromise, medicationPromise]);
+
+    res.json(fullMedicalInfo);
+  } catch (error) {
+    res.status(500).json({ error: error.message || "An error occurred" });
+  }
 });
 
 // UPDATE USER'S MEDICAL INFORMATION -> why would we wanna update medical record id...?
