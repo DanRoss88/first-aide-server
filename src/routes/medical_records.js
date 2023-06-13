@@ -118,6 +118,7 @@ mRRouter.get("/", async (req, res) => {
 // Create a new allergy
 mRRouter.post("/allergies", (req, res) => {
   const { name, severity } = req.body;
+  console.log(req.body);
   const userId = getUserId(req);
 
   createUserAllergy(userId, name, severity)
@@ -140,7 +141,7 @@ mRRouter.delete("/allergies/:allergyId/", (req, res) => {
       if (data.length === 0) {
         return res.status(404).json({ error: "Allergy not found" });
       }
-      res.json(data);
+      res.sendStatus(200);
       console.log("Allergy deleted");
     })
     .catch((error) => {
