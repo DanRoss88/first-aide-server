@@ -77,9 +77,9 @@ bookmarkRouter.get("/", (req, res) => {
 
 // Create a new bookmark
 bookmarkRouter.post("/", (req, res) => {
-  const { title, instructions } = req.body;
+  const { title, instruction } = req.body;
   const userId = getUserId(req);
-  createBookmark(title, instructions, userId)
+  createBookmark(title, instruction, userId)
     .then((bookmark) => {
       res.json(bookmark);
       console.log("Bookmark created");
