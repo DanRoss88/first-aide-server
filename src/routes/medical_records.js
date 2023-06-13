@@ -7,6 +7,7 @@ const {
   getUserMedication,
   createUserAllergy,
   deleteUserAllergy,
+  createUserMedication,
 } = require("../controllers/medical_records_controllers");
 // const {
 //   getAllergiesByMedicalRecords,
@@ -233,24 +234,25 @@ mRRouter.delete("/conditions/:conditionId/:medicalRecordsId", (req, res) => {
 
 // Get medications by medical records ID
 
-mRRouter.get("/medications/:medicalRecordsId", (req, res) => {
-  const medicalRecordsId = req.params.medicalRecordsId;
+// mRRouter.get("/medications/:medicalRecordsId", (req, res) => {
+//   const medicalRecordsId = req.params.medicalRecordsId;
 
-  getMedicationsByMedicalRecords(medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "An error occurred" });
-    });
-});
+//   getMedicationsByMedicalRecords(medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: "An error occurred" });
+//     });
+// });
 
 // Create a new medication
 
 mRRouter.post("/medications", (req, res) => {
-  const { medicalRecordId, medicationName } = req.body;
+  const { name } = req.body;
+  const userId = getUserId(req);
 
-  createMedication(medicalRecordId, medicationName)
+  createUserMedication(userId, name)
     .then((data) => {
       res.json(data);
       console.log("Medication created");

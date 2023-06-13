@@ -68,12 +68,30 @@ const deleteUserAllergy = async (allergyId, userId) => {
   return deleteAllergy.rowCount;
 };
 
+const createUserMedication = async (userId, name) => {
+  const medicalRecordId = await db.query(
+    `SELECT medical_records.id
+    FROM medical_records
+    WHERE users_id = $1`,
+    [userId]
+  );
+
+  const updateMedication = await db.query(
+    `INSERT INTO medication (medical_records_id, name)
+    VALUES ($1, $2)
+    RETURNING *`,
+    [medicalRecordId.rows[0].id, name]
+  );
+  return updateMedication.rows[0];
+};
+
 module.exports = {
   getUserAllergy,
   getUserCondition,
   getUserMedication,
   createUserAllergy,
   deleteUserAllergy,
+  createUserMedication,
 };
 
 // return db
