@@ -97,8 +97,40 @@ const deleteUserMedication = async (userId, medicationId) => {
     );`,
     [medicationId, userId]
   );
-  console.log(deleteMedication.rowCount);
   return deleteMedication.rowCount;
+};
+
+const createUserCondition = async (userId, name) => {
+  const medicalRecordId = await db.query(
+    `SELECT medical_records.id
+    FROM medical_records
+    WHERE users_id = $1`,
+    [userId]
+  );
+
+  const updateCondition = await db.query(
+    `INSERT INTO "condition" (medical_records_id, name)
+    VALUES ($1, $2)
+    RETURNING *`,
+    [medicalRecordId.rows[0].id, name]
+  );
+  return updateCondition.rows[0];
+};
+
+const deleteUserCondition = async (userId, conditionId) => {
+  const deleteCondition = await db.query(
+    `DELETE FROM "condition"
+    WHERE "condition".id = $1
+    AND "condition".medical_records_id IN (
+      SELECT medical_records.id
+      FROM medical_records
+      JOIN users ON users.id = medical_records.users_id
+      WHERE users.id = $2
+    );`,
+    [conditionId, userId]
+  );
+  console.log("rowcount", deleteCondition.rowCount);
+  return deleteCondition.rowCount;
 };
 
 module.exports = {
@@ -109,6 +141,8 @@ module.exports = {
   deleteUserAllergy,
   createUserMedication,
   deleteUserMedication,
+  createUserCondition,
+  deleteUserCondition,
 };
 
 // return db

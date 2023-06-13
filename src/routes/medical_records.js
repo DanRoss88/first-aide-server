@@ -9,6 +9,8 @@ const {
   deleteUserAllergy,
   createUserMedication,
   deleteUserMedication,
+  createUserCondition,
+  deleteUserCondition,
 } = require("../controllers/medical_records_controllers");
 // const {
 //   getAllergiesByMedicalRecords,
@@ -172,24 +174,25 @@ mRRouter.delete("/allergies/:allergyId/", (req, res) => {
 
 // Get conditions by medical records ID
 
-mRRouter.get("/conditions/:medicalRecordsId", (req, res) => {
-  const medicalRecordsId = req.params.medicalRecordsId;
+// mRRouter.get("/conditions/:medicalRecordsId", (req, res) => {
+//   const medicalRecordsId = req.params.medicalRecordsId;
 
-  getConditionsByMedicalRecords(medicalRecordsId)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "An error occurred" });
-    });
-});
+//   getConditionsByMedicalRecords(medicalRecordsId)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ error: "An error occurred" });
+//     });
+// });
 
 // Create a new condition
 
 mRRouter.post("/conditions", (req, res) => {
-  const { medicalRecordId, conditionName } = req.body;
+  const { name } = req.body;
+  const userId = getUserId(req);
 
-  createCondition(medicalRecordId, conditionName)
+  createUserCondition(userId, name)
     .then((data) => {
       res.json(data);
       console.log("Condition created");
@@ -201,13 +204,16 @@ mRRouter.post("/conditions", (req, res) => {
 
 // Delete user condition by ID
 
-mRRouter.delete("/conditions/:conditionId/:medicalRecordsId", (req, res) => {
+mRRouter.delete("/conditions/:conditionId", (req, res) => {
   const conditionId = req.params.conditionId;
-  const medicalRecordsId = req.params.medicalRecordsId;
+  const userId = getUserId(req);
 
-  deleteCondition(conditionId, medicalRecordsId)
+  deleteUserCondition(userId, conditionId)
     .then((data) => {
-      res.json(data);
+      if (data === 0 || data === undefined) {
+        return res.status(404).json({ error: "Condition not found" });
+      }
+      res.sendStatus(200);
       console.log("Condition deleted");
     })
     .catch((error) => {
