@@ -5,6 +5,7 @@ const {
   getUserAllergy,
   getUserCondition,
   getUserMedication,
+  createUserAllergy,
   deleteUserAllergy,
 } = require("../controllers/medical_records_controllers");
 // const {
@@ -116,9 +117,10 @@ mRRouter.get("/", async (req, res) => {
 
 // Create a new allergy
 mRRouter.post("/allergies", (req, res) => {
-  const { medicalRecordId, allergyName, allergySeverity } = req.body;
+  const { name, severity } = req.body;
+  const userId = getUserId(req);
 
-  createAllergy(medicalRecordId, allergyName, allergySeverity)
+  createUserAllergy(userId, name, severity)
     .then((data) => {
       res.json(data);
       console.log("Allergy created");
