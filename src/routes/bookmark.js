@@ -1,6 +1,11 @@
-const express = require('express');
+const express = require("express");
 const bookmarkRouter = express.Router();
-const { getAllBookmarks, createBookmark, deleteBookmark } = require('../controllers/bookmark_controllers');
+const {
+  getAllBookmarks,
+  createBookmark,
+  deleteBookmark,
+} = require("../controllers/bookmark_controllers");
+const getUserId = require("../helpers/getUserId");
 
 // // Get all bookmarks by user ID
 // bookmarkRouter.get('/:userID', (req, res) => {
@@ -58,44 +63,43 @@ const { getAllBookmarks, createBookmark, deleteBookmark } = require('../controll
 //     });
 // });
 
-
 // Get all bookmarks by user ID
-bookmarkRouter.get('/:userId', (req, res) => {
-  const { userId } = req.params;
+bookmarkRouter.get("/", (req, res) => {
+  const userId = getUserId(req);
   getAllBookmarks(userId)
     .then((bookmarks) => {
       res.json(bookmarks);
     })
     .catch((error) => {
-      res.status(500).json({ error: 'Failed to retrieve bookmarks' });
+      res.status(500).json({ error: "Failed to retrieve bookmarks" });
     });
 });
 
-
 // Create a new bookmark
-bookmarkRouter.post('/', (req, res) => {
-  const { userId, title, instructions } = req.body;
+bookmarkRouter.post("/", (req, res) => {
+  const { title, instructions } = req.body;
+  const userId = getUserId(req);
   createBookmark(title, instructions, userId)
     .then((bookmark) => {
       res.json(bookmark);
-      console.log('Bookmark created');
+      console.log("Bookmark created");
     })
     .catch((error) => {
-      res.status(500).json({ error: 'Failed to create bookmark' });
+      res.status(500).json({ error: "Failed to create bookmark" });
     });
 });
 
-
 // Delete a bookmark by bookmark ID
-bookmarkRouter.delete('/:bookmarkId', (req, res) => {
+bookmarkRouter.delete("/:bookmarkId", (req, res) => {
   const { bookmarkId } = req.params;
-  deleteBookmark(bookmarkId)
+  const userId = getUserId(req);
+  deleteBookmark(bookmarkId, userId)
     .then((bookmark) => {
       res.json(bookmark);
-      console.log('Bookmark deleted');
+      console.log("Bookmark deleted");
     })
     .catch((error) => {
-      res.status(500).json({ error: 'Failed to delete bookmark' });
+      res.status(500).json({ error: "Failed to delete bookmark" });
     });
 });
 
