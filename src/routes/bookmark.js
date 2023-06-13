@@ -98,7 +98,9 @@ bookmarkRouter.post("/edit", (req, res) => {
   const { bookmarkId, title } = req.body;
   const userId = getUserId(req);
 
-  editBookmark(bookmarkId, title, userId)
+  console.log(bookmarkId, title, userId);
+
+  editBookmark(title, bookmarkId, userId)
     .then((bookmark) => {
       res.json(bookmark);
       console.log(bookmark, "Bookmark title edited");
