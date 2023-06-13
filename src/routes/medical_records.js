@@ -133,8 +133,11 @@ mRRouter.delete("/allergies/:allergyId/", (req, res) => {
   const allergyId = req.params.allergyId;
   const userId = getUserId(req);
 
-  deleteAllergy(allergyId, medicalRecordsId)
+  deleteUserAllergy(allergyId, userId)
     .then((data) => {
+      if (data.length === 0) {
+        return res.status(404).json({ error: "Allergy not found" });
+      }
       res.json(data);
       console.log("Allergy deleted");
     })

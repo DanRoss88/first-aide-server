@@ -45,10 +45,10 @@ const deleteUserAllergy = async (allergyId, userId) => {
       FROM medical_records
       JOIN users ON users.id = medical_records.users_id
       WHERE users.id = $2
-    )`,
+    );`,
     [allergyId, userId]
   );
-  return deleteUserAllergy.rows;
+  return deleteAllergy.rowCount;
 };
 
 module.exports = {
