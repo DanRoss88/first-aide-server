@@ -37,11 +37,12 @@ const getUserId = require("../helpers/getUserId");
 
 /* 
 
-Retrieve user's medical record ID ->
+Current: Retrieve user's medical record ID ->
 {
   "id": 1,
   "users_id": 1, 
 }
+Fix: Should retrieve user's medical ID, then respond with all medical info associated with that ID
 
 */
 mRRouter.get("/", (req, res) => {
