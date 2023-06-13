@@ -85,6 +85,22 @@ const createUserMedication = async (userId, name) => {
   return updateMedication.rows[0];
 };
 
+const deleteUserMedication = async (userId, medicationId) => {
+  const deleteMedication = await db.query(
+    `DELETE FROM medication
+    WHERE medication.id = $1
+    AND medication.medical_records_id IN (
+      SELECT medical_records.id
+      FROM medical_records
+      JOIN users ON users.id = medical_records.users_id
+      WHERE users.id = $2
+    );`,
+    [medicationId, userId]
+  );
+  console.log(deleteMedication.rowCount);
+  return deleteMedication.rowCount;
+};
+
 module.exports = {
   getUserAllergy,
   getUserCondition,
@@ -92,6 +108,7 @@ module.exports = {
   createUserAllergy,
   deleteUserAllergy,
   createUserMedication,
+  deleteUserMedication,
 };
 
 // return db

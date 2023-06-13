@@ -8,6 +8,7 @@ const {
   createUserAllergy,
   deleteUserAllergy,
   createUserMedication,
+  deleteUserMedication,
 } = require("../controllers/medical_records_controllers");
 // const {
 //   getAllergiesByMedicalRecords,
@@ -139,7 +140,8 @@ mRRouter.delete("/allergies/:allergyId/", (req, res) => {
 
   deleteUserAllergy(allergyId, userId)
     .then((data) => {
-      if (data.length === 0) {
+      console.log(data);
+      if (data === 0 || data === undefined) {
         return res.status(404).json({ error: "Allergy not found" });
       }
       res.sendStatus(200);
@@ -264,13 +266,16 @@ mRRouter.post("/medications", (req, res) => {
 
 // Delete user medication by ID
 
-mRRouter.delete("/medications/:medicationId/:medicalRecordsId", (req, res) => {
+mRRouter.delete("/medications/:medicationId", (req, res) => {
   const medicationId = req.params.medicationId;
-  const medicalRecordsId = req.params.medicalRecordsId;
+  const userId = getUserId(req);
 
-  deleteMedication(medicationId, medicalRecordsId)
+  deleteUserMedication(userId, medicationId)
     .then((data) => {
-      res.json(data);
+      if (data === 0 || data === undefined) {
+        return res.status(404).json({ error: "Medication not found" });
+      }
+      res.sendStatus(200);
       console.log("Medication deleted");
     })
     .catch((error) => {
