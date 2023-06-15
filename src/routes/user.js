@@ -9,7 +9,7 @@ userRouter.get("/", async (req, res) => {
 
   try {
     const users = await database.query(
-      `SELECT users.id, username, email, city.name FROM users 
+      `SELECT users.id, username, email, city.name AS city FROM users 
     JOIN city ON users.city_id = city.id
     WHERE users.id = $1`,
       [userId]
