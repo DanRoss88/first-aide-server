@@ -100,6 +100,14 @@ app.post("/register", async (req, res) => {
       [lowerCaseEmail]
     );
 
+    console.log(createdUser.rows[0].id);
+
+    // create new medical record for new user
+    const newMedicalRecord = await database.query(
+      "INSERT INTO medical_records (users_id) VALUES ($1) RETURNING *",
+      [createdUser.rows[0].id]
+    );
+
     const payload = {
       user_id: createdUser.rows[0].id,
       email: createdUser.rows[0].email,
