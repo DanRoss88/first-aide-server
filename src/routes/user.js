@@ -8,9 +8,12 @@ userRouter.get("/", async (req, res) => {
   const userId = getUserId(req);
 
   try {
-    const users = await database.query("SELECT * FROM users WHERE id = $1", [
-      userId,
-    ]);
+    const users = await database.query(
+      `SELECT users.id, username, email, city.name FROM users 
+    JOIN city ON users.city_id = city.id
+    WHERE users.id = $1`,
+      [userId]
+    );
     res.json(users.rows[0]);
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve users." });
