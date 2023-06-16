@@ -46,4 +46,4 @@ The creators and contributors of First Aide shall not be held liable for any dam
 
 It is advisable to consult with a qualified healthcare professional or medical expert for personalized medical advice and assistance.
 
-##### For any questions or issues, please contact the contributors mentioned above.
+###### For any questions or issues, please contact the contributors mentioned above.
