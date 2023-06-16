@@ -1,16 +1,49 @@
-# First Aide App Server
+# First Aide - AI First Aid Medical Instructions App
+
+![First Aide Logo](link_to_logo_image)
+
 ## About
-First Aid medical app for LHL final project
+First Aide is an AI-powered first aid medical instructions app developed as a final project for LHL. It was created within a 7-day timeframe using React Expo/Native for the frontend and Express for the backend.
 
+The purpose of First Aide is to provide users with instant access to accurate first aid instructions in emergency situations. Leveraging the power of artificial intelligence, the app offers intelligent suggestions and recommendations based on user input, ensuring users receive the most relevant and appropriate medical guidance.
 
-## Screen Shots 
+Please note that an OpenAI API key is required to operate First Aide effectively.
 
+## Features
+- Instant access to first aid medical instructions
+- AI-powered intelligent suggestions and recommendations
+- User-friendly interface for ease of use
+- Supports both iOS and Android platforms
+- Secure database integration for storing essential information
+- Customizable database configuration via the .env file
 
-## Instructions 
+## Screenshots
+![Screenshot 1](link_to_screenshot_1)
+![Screenshot 2](link_to_screenshot_2)
+![Screenshot 3](link_to_screenshot_3)
 
-#### npm start 
-##### to connect the server and database
-##### make sure to configure the .env file for your local database
+## Getting Started
+To run the First Aide app, follow these steps:
 
-#### npm run reset-db for Database reset and seed
+1. Clone the repository to your local machine.
+2. Install the necessary dependencies by running `npm install`.
+3. Configure the .env file to connect to your local database.
+4. Start the server and connect to the database by running `npm start`.
+5. To reset the database and seed initial data, run `npm run reset-db`.
 
+Please ensure you have an OpenAI API key before running the app, as it is required for the AI functionality.
+
+## Contributors
+First Aide was created by the following contributors:
+- Liana Kan
+- Dan Ross
+- Kayano
+
+## Disclaimer
+First Aide is intended to provide general first aid information and guidance. However, it is important to note that First Aide is not a substitute for professional medical advice, diagnosis, or treatment. The app is designed to assist users in emergency situations, but it is always recommended to seek immediate medical attention or contact local emergency services in case of a medical emergency.
+
+The creators and contributors of First Aide shall not be held liable for any damages, injuries, or losses resulting from the use of the app or reliance on the information provided. Users are responsible for their own actions and decisions when using First Aide.
+
+It is advisable to consult with a qualified healthcare professional or medical expert for personalized medical advice and assistance.
+
+##### For any questions or issues, please contact the contributors mentioned above.
