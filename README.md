@@ -13,9 +13,11 @@ Please note that an OpenAI API key is required to operate First Aide effectively
 - Instant access to first aid medical instructions
 - AI-powered intelligent suggestions and recommendations
 - User-friendly interface for ease of use
-- Supports both iOS and Android platforms
-- Secure database integration for storing essential information
-- Customizable database configuration via the .env file
+- Bookmark feature to save and access favorite first aid instructions
+- Emergency contact information storage for quick access
+- Nearby hospitals information based on city location
+- Medical records management, including allergies, conditions, and medications
+- Speech recognition for querying the OpenAI API and receiving instructions based on user prompts
 
 ## Screenshots
 ![Screenshot 1](link_to_screenshot_1)
@@ -38,6 +40,7 @@ First Aide was created by the following contributors:
 - Liana Kan
 - Dan Ross
 - Kayano Oyama
+
 
 ## Disclaimer
 First Aide is intended to provide general first aid information and guidance. However, it is important to note that First Aide is not a substitute for professional medical advice, diagnosis, or treatment. The app is designed to assist users in emergency situations, but it is always recommended to seek immediate medical attention or contact local emergency services in case of a medical emergency.
