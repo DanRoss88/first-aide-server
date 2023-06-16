@@ -70,7 +70,7 @@ instructionsRouter.post("/", async (req, res) => {
   try {
     const { input } = req.body;
 
-    const prompt = `You are a helpful first aid instructor. ${input}`;
+    const prompt = `You are a helpful first aid instructor. ${input}?`;
     const instructions = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
