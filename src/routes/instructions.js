@@ -70,7 +70,7 @@ instructionsRouter.post("/", async (req, res) => {
   try {
     const { input } = req.body;
 
-    const prompt = `You are a helpful first aid instructor.\nQ: ${input}\nA:`;
+    const prompt = `You are a helpful first aid instructor. ${input}`;
     const instructions = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
@@ -79,7 +79,6 @@ instructionsRouter.post("/", async (req, res) => {
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
-      stop: ["\n"],
     });
 
     const generatedInstructions = instructions.data.choices[0].text.trim();
@@ -93,7 +92,6 @@ instructionsRouter.post("/", async (req, res) => {
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
-      stop: ["\n"],
     });
 
     const generatedTitle = title.data.choices[0].text.trim();
