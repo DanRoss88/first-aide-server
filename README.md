@@ -37,7 +37,7 @@ Please ensure you have an OpenAI API key before running the app, as it is requir
 First Aide was created by the following contributors:
 - Liana Kan
 - Dan Ross
-- Kayano
+- Kayano Oyama
 
 ## Disclaimer
 First Aide is intended to provide general first aid information and guidance. However, it is important to note that First Aide is not a substitute for professional medical advice, diagnosis, or treatment. The app is designed to assist users in emergency situations, but it is always recommended to seek immediate medical attention or contact local emergency services in case of a medical emergency.
