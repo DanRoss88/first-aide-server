@@ -1,6 +1,6 @@
 # First Aide - AI First Aid Medical Instructions App
 
-![First Aide Logo](https://media.discordapp.net/attachments/1113989921816985630/1119335653734363276/icon.png?width=703&height=703)
+![First Aide Logo](https://media.discordapp.net/attachments/1113989921816985630/1119416848274952252/banner.png?width=1057&height=165)
 
 ## About
 First Aide is an AI-powered first aid medical instructions app developed as a final project for LHL. It was created within a 7-day timeframe using React Expo/Native for the frontend and Express for the backend.
