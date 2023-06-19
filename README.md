@@ -23,11 +23,6 @@ Please note that an OpenAI API key is required to operate First Aide effectively
 - Medical records management, including allergies, conditions, and medications
 - Speech recognition for querying the OpenAI API and receiving instructions based on user prompts
 
-## Screenshots
-![Screenshot 1](link_to_screenshot_1)
-![Screenshot 2](link_to_screenshot_2)
-![Screenshot 3](link_to_screenshot_3)
-
 ## Getting Started
 To run the First Aide app, follow these steps:
 
