@@ -2,6 +2,10 @@
 
 ![First Aide Logo](https://media.discordapp.net/attachments/1113989921816985630/1119416848274952252/banner.png?width=1057&height=165)
 
+## Client Github Repo
+
+https://github.com/suefrontend/first-aide-client
+
 ## About
 First Aide is an AI-powered first aid medical instructions app developed as a final project for LHL. It was created within a 7-day timeframe using React Expo/Native for the frontend and Express for the backend.
 
