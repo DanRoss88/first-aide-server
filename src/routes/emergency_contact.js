@@ -8,8 +8,6 @@ const {
 } = require("../controllers/emergency_contact_controllers");
 const getUserId = require("../helpers/getUserId");
 
-///// Emergency Contact Routes /////
-
 // Get all emergency contacts by user ID
 
 emergContRouter.get("/", async (req, res) => {
@@ -33,7 +31,6 @@ emergContRouter.post("/", async (req, res) => {
   createEmergencyContact(userId, name, phone, relationship)
     .then((data) => {
       res.json(data);
-      console.log("Emergency Contact created");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
@@ -50,7 +47,6 @@ emergContRouter.delete("/:contactId", async (req, res) => {
   deleteEmergencyContact(contactId, userId)
     .then((data) => {
       res.send("Emergency Contact deleted");
-      console.log("Emergency Contact deleted");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });

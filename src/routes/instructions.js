@@ -1,58 +1,3 @@
-// const { getInstructionsByKeyword } = require('../controllers/instructions_controllers');
-
-// const db = require('../config/config.db');
-// const openai = require('openai');
-// require ('dotenv').config();
-
-// const openaiApiKey = process.env.OPENAI_API_KEY;
-// const openaiClient = new openai.OpenAIApi(openaiApiKey);
-// const express = require('express');
-// const instructionsRouter = express.Router();
-// const { getInstructionsByUserInput } = require('../controllers/instructions_controllers');
-
-// instructionsRouter.post('/', async (req, res) => {
-//   try {
-//     const userInput = req.body.input;
-//     const instructions = await getInstructionsByUserInput(userInput);
-//     res.json({ instructions });
-//   } catch (error) {
-//     console.error('An error occurred:', error);
-//     res.status(500).json({ error: 'An error occurred' });
-//   }
-// });
-
-// module.exports = instructionsRouter;
-// instructionsRouter.get("/", async (req, res) => {
-//   try {
-//     const instructions = await db.query("SELECT * FROM instructions");
-//     res.json(instructions.rows);
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to retrieve instructions." });
-//   }
-// });
-
-// instructionsRouter.get('/:keyword', (req, res) => {
-//   const inputString = req.params.keyword;
-
-//   getInstructionsByKeyword(inputString)
-//     .then((data) => {
-//       if (data.length > 0) {
-//         const instruction = data[0].instruction;
-//         console.log('Instruction:', instruction);
-//         res.json({ instruction }); // Send the instruction as JSON response to the front end
-//       } else {
-//         console.log('No instruction found for the given keyword.');
-//         res.json({ instruction: 'No instruction found' }); // Send null as the instruction if not found
-//       }
-//     })
-//     .catch((error) => {
-//       console.error('An error occurred:', error);
-//       res.status(500).json({ error: 'An error occurred' });
-//     });
-// });
-
-///// OPEN AI CODE /////
-
 const express = require("express");
 const instructionsRouter = express.Router();
 require("dotenv").config();
@@ -95,11 +40,6 @@ instructionsRouter.post("/", async (req, res) => {
     });
 
     const generatedTitle = title.data.choices[0].text.trim();
-
-    console.log({
-      title: generatedTitle,
-      instructions: generatedInstructions,
-    });
 
     return res.status(200).json({
       title: generatedTitle,
