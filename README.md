@@ -21,7 +21,7 @@ Please click below link to access front-end repo with more detailed `README.md`:
 - PostgreSQL
 
 ## Getting Started
-To run the First Aide app, follow these steps:
+To run the server, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Install the necessary dependencies by running `npm install`.
