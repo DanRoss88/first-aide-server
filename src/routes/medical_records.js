@@ -12,46 +12,9 @@ const {
   createUserCondition,
   deleteUserCondition,
 } = require("../controllers/medical_records_controllers");
-// const {
-//   getAllergiesByMedicalRecords,
-//   createAllergy,
-// deleteAllergy,
-// } = require("../controllers/allergy_controllers");
-// const {
-//   getConditionsByMedicalRecords,
-//   createCondition,
-//   deleteCondition,
-// } = require("../controllers/condition_controllers");
-// const {
-//   getMedicationsByMedicalRecords,
-//   createMedication,
-//   deleteMedication,
-// } = require("../controllers/medication_controllers");
+
 const getUserId = require("../helpers/getUserId");
 
-////////////////////////////// MEDICAL RECORDS //////////////////////////////
-
-// Display all medical records
-// mRRouter.get("/", (req, res) => {
-//   db.query("SELECT * FROM medical_records ")
-//     .then((data) => {
-//       res.json(data.rows);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: "An error occurred" });
-//     });
-// });
-
-/* 
-
-Current: Retrieve user's medical record ID ->
-{
-  "id": 1,
-  "users_id": 1, 
-}
-Fix: Should retrieve user's medical ID, then respond with all medical info associated with that ID
-
-*/
 mRRouter.get("/", async (req, res) => {
   try {
     const userId = getUserId(req);
@@ -89,46 +52,14 @@ mRRouter.get("/", async (req, res) => {
   }
 });
 
-// UPDATE USER'S MEDICAL INFORMATION -> why would we wanna update medical record id...?
-// mRRouter.post("/:medicalRecordId", (req, res) => {
-//   const userId = getUserId(req);
-//   const medicalRecordId = req.params.medicalRecordId;
-
-//   updateUserMedicalInfo(userId, medicalRecordId)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: "An error occurred" });
-//     });
-// });
-
-// ALLERGIES
-
-// Get allergies by medical records ID
-// Anyone other than user should not be able to access this route :(
-// mRRouter.get("/allergies/:medicalRecordsId", (req, res) => {
-//   const medicalRecordsId = req.params.medicalRecordsId;
-
-//   getAllergiesByMedicalRecords(medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: "An error occurred" });
-//     });
-// });
-
 // Create a new allergy
 mRRouter.post("/allergies", (req, res) => {
   const { name, severity } = req.body;
-  console.log(req.body);
   const userId = getUserId(req);
 
   createUserAllergy(userId, name, severity)
     .then((data) => {
       res.json(data);
-      console.log("Allergy created");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
@@ -142,52 +73,17 @@ mRRouter.delete("/allergies/:allergyId/", (req, res) => {
 
   deleteUserAllergy(allergyId, userId)
     .then((data) => {
-      console.log(data);
       if (data === 0 || data === undefined) {
         return res.status(404).json({ error: "Allergy not found" });
       }
       res.sendStatus(200);
-      console.log("Allergy deleted");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
     });
 });
 
-// Edit user allergy by ID
-// mRRouter.put('/allergies/:allergyId/:medicalRecordsId', (req, res) => {
-//   const allergyId = req.params.allergyId;
-//   const medicalRecordsId = req.params.medicalRecordsId;
-//   const { allergyName, allergySeverity } = req.body;
-
-//   editAllergy(allergyId, allergyName, allergySeverity, medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//       console.log('Allergy edited');
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: 'An error occurred' });
-//     });
-// });
-
-/////// CONDITIONS ///////
-
-// Get conditions by medical records ID
-
-// mRRouter.get("/conditions/:medicalRecordsId", (req, res) => {
-//   const medicalRecordsId = req.params.medicalRecordsId;
-
-//   getConditionsByMedicalRecords(medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: "An error occurred" });
-//     });
-// });
-
 // Create a new condition
-
 mRRouter.post("/conditions", (req, res) => {
   const { name } = req.body;
   const userId = getUserId(req);
@@ -195,7 +91,6 @@ mRRouter.post("/conditions", (req, res) => {
   createUserCondition(userId, name)
     .then((data) => {
       res.json(data);
-      console.log("Condition created");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
@@ -203,7 +98,6 @@ mRRouter.post("/conditions", (req, res) => {
 });
 
 // Delete user condition by ID
-
 mRRouter.delete("/conditions/:conditionId", (req, res) => {
   const conditionId = req.params.conditionId;
   const userId = getUserId(req);
@@ -214,48 +108,13 @@ mRRouter.delete("/conditions/:conditionId", (req, res) => {
         return res.status(404).json({ error: "Condition not found" });
       }
       res.sendStatus(200);
-      console.log("Condition deleted");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
     });
 });
 
-// Edit user condition by ID
-
-// mRRouter.put('/conditions/:conditionId/:medicalRecordsId', (req, res) => {
-//   const conditionId = req.params.conditionId;
-//   const medicalRecordsId = req.params.medicalRecordsId;
-//   const { conditionName } = req.body;
-
-//   editCondition(conditionId, conditionName, medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//       console.log('Condition edited');
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: 'An error occurred' });
-//     });
-// });
-
-////// MEDICATIONS //////
-
-// Get medications by medical records ID
-
-// mRRouter.get("/medications/:medicalRecordsId", (req, res) => {
-//   const medicalRecordsId = req.params.medicalRecordsId;
-
-//   getMedicationsByMedicalRecords(medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: "An error occurred" });
-//     });
-// });
-
 // Create a new medication
-
 mRRouter.post("/medications", (req, res) => {
   const { name } = req.body;
   const userId = getUserId(req);
@@ -263,7 +122,6 @@ mRRouter.post("/medications", (req, res) => {
   createUserMedication(userId, name)
     .then((data) => {
       res.json(data);
-      console.log("Medication created");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
@@ -271,7 +129,6 @@ mRRouter.post("/medications", (req, res) => {
 });
 
 // Delete user medication by ID
-
 mRRouter.delete("/medications/:medicationId", (req, res) => {
   const medicationId = req.params.medicationId;
   const userId = getUserId(req);
@@ -282,28 +139,10 @@ mRRouter.delete("/medications/:medicationId", (req, res) => {
         return res.status(404).json({ error: "Medication not found" });
       }
       res.sendStatus(200);
-      console.log("Medication deleted");
     })
     .catch((error) => {
       res.status(500).json({ error: "An error occurred" });
     });
 });
-
-// Edit user medication by ID
-
-// mRRouter.put('/medications/:medicationId/:medicalRecordsId', (req, res) => {
-//   const medicationId = req.params.medicationId;
-//   const medicalRecordsId = req.params.medicalRecordsId;
-//   const { medicationName } = req.body;
-
-//   editMedication(medicationId, medicationName, medicalRecordsId)
-//     .then((data) => {
-//       res.json(data);
-//       console.log('Medication edited');
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ error: 'An error occurred' });
-//     });
-// });
 
 module.exports = mRRouter;

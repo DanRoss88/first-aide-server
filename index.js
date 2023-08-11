@@ -43,7 +43,6 @@ app.get("/test", (req, res) => {
 
 app.post("/login", async (req, res) => {
   const email = req.body.email.toLowerCase();
-  console.log("helloooo", req.body);
 
   // check if email exists in database
   const user = await database.query("SELECT * FROM users WHERE email = $1", [
@@ -99,8 +98,6 @@ app.post("/register", async (req, res) => {
       "SELECT * FROM users WHERE email = $1",
       [lowerCaseEmail]
     );
-
-    console.log(createdUser.rows[0].id);
 
     // create new medical record for new user
     const newMedicalRecord = await database.query(
