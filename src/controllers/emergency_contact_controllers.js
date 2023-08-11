@@ -9,6 +9,7 @@ const getAllEmergencyContacts = (userId) => {
     .query("SELECT * FROM emergency_contact WHERE users_id = $1", [userId])
     .then((data) => data.rows)
     .catch((err) => {
+      console.log("Error retrieving emergency contacts:", err);
       throw err;
     });
 };
@@ -28,6 +29,7 @@ const createEmergencyContact = (
     )
     .then((data) => data.rows[0])
     .catch((err) => {
+      console.log("Error creating emergency contact:", err);
       throw err;
     });
 };
@@ -42,6 +44,7 @@ const deleteEmergencyContact = (contactId, userId) => {
     )
     .then((data) => data.rows[0])
     .catch((err) => {
+      console.log("Error deleting emergency contact:", err);
       throw err;
     });
 };
@@ -54,6 +57,7 @@ const getEmergencyContactById = (contactId, userId) => {
     ])
     .then((data) => data.rows[0])
     .catch((err) => {
+      console.log("Error retrieving emergency contact:", err);
       throw err;
     });
 };

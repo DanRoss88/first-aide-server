@@ -5,11 +5,28 @@ const {
 } = require("../controllers/hospital_controllers");
 const jwt = require("jsonwebtoken");
 
-// Get all hospitals by user city ID
+///// Hospital Routes /////
+
+// Get all hospitals by city ID // STRETCH// NEARBY CITIES HOSPTIALS ///
+
+// hospitalRouter.get('/:cityId', (req, res) => {
+// const cityId = req.params.cityId;
+
+// getAllHospitals(cityId)
+//   .then((data) => {
+//     res.json(data);
+//   })
+//   .catch((error) => {
+//     res.status(500).json({ error: 'An error occurred' });
+//   });
+// });
+
+/// Get all hospitals by user city ID
 
 hospitalRouter.get("/", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
+  console.log(token);
   let userId;
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {

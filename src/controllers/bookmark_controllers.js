@@ -6,6 +6,7 @@ const getAllBookmarks = (userId) => {
     .query("SELECT * FROM bookmark WHERE users_id = $1", [userId])
     .then((data) => data.rows)
     .catch((err) => {
+      console.log("Error retrieving bookmarks:", err);
       throw err;
     });
 };
@@ -19,6 +20,7 @@ const createBookmark = (title, instructions, userId) => {
     )
     .then((data) => data.rows[0])
     .catch((err) => {
+      console.log("Error creating bookmark:", err);
       throw err;
     });
 };
@@ -38,6 +40,7 @@ const editBookmark = (title, bookmarkId, userId) => {
       return data.rows[0];
     })
     .catch((err) => {
+      console.log("Error editing bookmark:", err);
       throw err;
     });
 };
@@ -51,6 +54,7 @@ const deleteBookmark = (bookmarkId, userId) => {
     ])
     .then((data) => data.rows[0])
     .catch((err) => {
+      console.log("Error deleting bookmark:", err);
       throw err;
     });
 };

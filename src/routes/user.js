@@ -21,6 +21,7 @@ userRouter.get("/", async (req, res) => {
 });
 
 // Update one user
+
 userRouter.post("/", async (req, res) => {
   const userId = getUserId(req);
   const { username, email, city } = req.body;
